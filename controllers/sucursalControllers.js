@@ -2,6 +2,7 @@ let database = require('../data/database')
 
 module.exports = controller = {
     index: function(req, res) {
+        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' })
         res.write("Sucursales de nuestra concesionaria:\n")
         res.write("--------------------------------------------------------------------------------------------\n")
         database.forEach(consecionaria=>{
@@ -13,6 +14,7 @@ module.exports = controller = {
         res.end()
     },
     sucursal: function(req, res){
+        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' })
         let sucId = req.params.id
         database.forEach(consecionaria=>{
             if(consecionaria.sucursal.toLowerCase() == sucId.toLowerCase()){
@@ -22,7 +24,7 @@ module.exports = controller = {
                 res.write('Telefono: ' + consecionaria.telefono + '\n\n')
                 res.write('Autos de la sucursal:\n\n')
                 consecionaria.autos.forEach(auto=>{
-                    res.write(auto.marca + ' - ' + auto.modelo +  + ' - ' + auto.anio + ' - ' + auto.color +  '\n')
+                    res.write(auto.marca + ' - ' + auto.modelo + ' ' + auto.anio + ' - ' + auto.color +  '\n')
                 })
                 res.write('---------------------------------------------------------------------------------------------------------\n')
                 res.end('Cantidad de autos disponibles en nuestra sucursal: ' + consecionaria.autos.length)
